@@ -15,15 +15,15 @@ import os
 # Setting SCRAPYDWEB_BIND to '0.0.0.0' or IP-OF-THE-CURRENT-HOST would make
 # ScrapydWeb server visible externally; Otherwise, set it to '127.0.0.1'.
 # The default is '0.0.0.0'.
-SCRAPYDWEB_BIND = '0.0.0.0'
+SCRAPYDWEB_BIND = "0.0.0.0"
 # Accept connections on the specified port, the default is 5000.
 SCRAPYDWEB_PORT = 5000
 
 # The default is False, set it to True to enable basic auth for the web UI.
 ENABLE_AUTH = True
 # In order to enable basic auth, both USERNAME and PASSWORD should be non-empty strings.
-USERNAME = os.environ.get('SCRAPYD_ADMIN', 'admin')
-PASSWORD = os.environ.get('SCRAPYD_PASSWD', 'secret')
+USERNAME = os.environ.get("SCRAPYD_ADMIN", "admin")
+PASSWORD = os.environ.get("SCRAPYD_PASSWD", "secret")
 
 
 # Make sure that [Scrapyd](https://github.com/scrapy/scrapyd) has been installed
@@ -45,7 +45,11 @@ PASSWORD = os.environ.get('SCRAPYD_PASSWD', 'secret')
 #   - or if ScrapydWeb fails to parse the string format passed in,
 #   - it's recommended to pass in a tuple of 5 elements.
 #   - e.g. ('', '', '127.0.0.1', '6800', '') or ('username', 'password', 'localhost', '6801', 'group')
-SCRAPYD_SERVERS = os.environ.get("SCRAPYD_SERVERS").split(',') if os.environ.get("SCRAPYD_SERVERS") else []
+SCRAPYD_SERVERS = (
+    os.environ.get("SCRAPYD_SERVERS").split(",")
+    if os.environ.get("SCRAPYD_SERVERS")
+    else []
+)
 
 
 # It's recommended to update the three options below
@@ -57,14 +61,14 @@ SCRAPYD_SERVERS = os.environ.get("SCRAPYD_SERVERS").split(',') if os.environ.get
 # ScrapydWeb would try to directly read Scrapy logfiles from disk, instead of making a request
 # to the Scrapyd server.
 # e.g. '127.0.0.1:6800' or 'localhost:6801', do not forget the port number.
-LOCAL_SCRAPYD_SERVER = ''
+LOCAL_SCRAPYD_SERVER = ""
 
 # Enter the directory when you run Scrapyd, run the command below
 # to find out where the Scrapy logs are stored:
 # python -c "from os.path import abspath, isdir; from scrapyd.config import Config; path = abspath(Config().get('logs_dir')); print(path); print(isdir(path))"
 # Check out https://scrapyd.readthedocs.io/en/stable/config.html#logs-dir for more info.
 # e.g. 'C:/Users/username/logs' or '/home/username/logs'
-LOCAL_SCRAPYD_LOGS_DIR = ''
+LOCAL_SCRAPYD_LOGS_DIR = ""
 
 # The default is False, set it to True to automatically run LogParser as a subprocess at startup.
 # Note that you can run the LogParser service separately via command 'logparser' as you like.
@@ -82,22 +86,22 @@ ENABLE_LOGPARSER = False
 # raises any excepion at startup: https://github.com/my8100/scrapydweb/issues/18
 ENABLE_HTTPS = False
 # e.g. '/home/username/cert.pem'
-CERTIFICATE_FILEPATH = ''
+CERTIFICATE_FILEPATH = ""
 # e.g. '/home/username/cert.key'
-PRIVATEKEY_FILEPATH = ''
+PRIVATEKEY_FILEPATH = ""
 
 
 ############################## Scrapy #########################################
 # ScrapydWeb is able to locate projects in the SCRAPY_PROJECTS_DIR,
 # so that you can simply select a project to deploy, instead of packaging it in advance.
 # e.g. 'C:/Users/username/myprojects' or '/home/username/myprojects'
-SCRAPY_PROJECTS_DIR = ''
+SCRAPY_PROJECTS_DIR = os.environ["SCRAPY_PROJECTS_DIR"]
 
 
 ############################## Scrapyd ########################################
 # ScrapydWeb would try every extension in sequence to locate the Scrapy logfile.
 # The default is ['.log', '.log.gz', '.txt'].
-SCRAPYD_LOG_EXTENSIONS = ['.log', '.log.gz', '.txt']
+SCRAPYD_LOG_EXTENSIONS = [".log", ".log.gz", ".txt"]
 
 
 ############################## LogParser ######################################
@@ -125,7 +129,7 @@ SCHEDULE_EXPAND_SETTINGS_ARGUMENTS = False
 
 # The default is 'Mozilla/5.0', set it a non-empty string to customize the default value of `custom`
 # in the drop-down list of `USER_AGENT`.
-SCHEDULE_CUSTOM_USER_AGENT = 'Mozilla/5.0'
+SCHEDULE_CUSTOM_USER_AGENT = "Mozilla/5.0"
 
 # The default is None, set it to any value of ['custom', 'Chrome', 'iPhone', 'iPad', 'Android']
 # to customize the default value of `USER_AGENT`.
@@ -187,7 +191,7 @@ DAEMONSTATUS_REFRESH_INTERVAL = 10
 # See https://api.slack.com/apps for more info
 
 # See step 1~7 above, e.g. 'xoxp-123-456-789-abcde'
-SLACK_TOKEN = os.environ.get('SLACK_TOKEN', '')
+SLACK_TOKEN = os.environ.get("SLACK_TOKEN", "")
 # The default channel to use when sending text via slack, e.g. 'general'
 SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL", "general")
 
@@ -204,29 +208,29 @@ SLACK_CHANNEL = os.environ.get("SLACK_CHANNEL", "general")
 # See https://core.telegram.org/bots#6-botfather for more info
 
 # See step 1~4 above, e.g. '123:abcde'
-TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN', '')
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "")
 # See step 5~6 above, e.g. 123456789
-TELEGRAM_CHAT_ID = int(os.environ.get('TELEGRAM_CHAT_ID', 0))
+TELEGRAM_CHAT_ID = int(os.environ.get("TELEGRAM_CHAT_ID", 0))
 
 ########## email ##########
 # The default subject to use when sending text via email.
-EMAIL_SUBJECT = os.environ.get("EMAIL_SUBJECT","Email from #scrapydweb")
+EMAIL_SUBJECT = os.environ.get("EMAIL_SUBJECT", "Email from #scrapydweb")
 
 ########## email sender & recipients ##########
 # Leave this option as '' to default to the EMAIL_SENDER option below; Otherwise, set it up
 # if your email service provider requires an username which is different from the EMAIL_SENDER option below to login.
 # e.g. 'username'
-EMAIL_USERNAME = os.environ.get('EMAIL_USERNAME', '')
+EMAIL_USERNAME = os.environ.get("EMAIL_USERNAME", "")
 # As for different email service provider, you might have to get an APP password (like Gmail)
 # or an authorization code (like QQ mail) and set it as the EMAIL_PASSWORD.
 # Check out links below to get more help:
 # https://stackoverflow.com/a/27515833/10517783 How to send an email with Gmail as the provider using Python?
 # https://stackoverflow.com/a/26053352/10517783 Python smtplib proxy support
 # e.g. 'password4gmail'
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD", "")
 
 # e.g. 'username@gmail.com'
-EMAIL_SENDER = os.environ.get('EMAIL_SENDER', '')
+EMAIL_SENDER = os.environ.get("EMAIL_SENDER", "")
 # e.g. ['username@gmail.com', ]
 EMAIL_RECIPIENTS = [EMAIL_SENDER]
 
@@ -237,16 +241,16 @@ EMAIL_RECIPIENTS = [EMAIL_SENDER]
 # Config for https://mail.google.com:           ('smtp.gmail.com', 587, False)
 # Config for https://mail.qq.com using SSL:     ('smtp.qq.com', 465, True)
 # Config for http://mail.10086.cn:              ('smtp.139.com', 25, False)
-SMTP_SERVER = os.environ.get('SMTP_SERVER', '')
-SMTP_PORT = os.environ.get('SMTP_PORT', 587)
-SMTP_OVER_SSL = os.environ.get("SMTP_OVER_SSL", 'False').lower() in ['true', '1']
+SMTP_SERVER = os.environ.get("SMTP_SERVER", "")
+SMTP_PORT = os.environ.get("SMTP_PORT", 587)
+SMTP_OVER_SSL = os.environ.get("SMTP_OVER_SSL", "False").lower() in ["true", "1"]
 # The timeout in seconds for the connection attempt, the default is 30.
 SMTP_CONNECTION_TIMEOUT = 30
 
 
 ############################## Monitor & Alert ################################
 # The default is False, set it to True to launch the poll subprocess to monitor your crawling jobs.
-ENABLE_MONITOR = os.environ.get("ENABLE_MONITOR", 'False').lower() in ['true', '1']
+ENABLE_MONITOR = os.environ.get("ENABLE_MONITOR", "False").lower() in ["true", "1"]
 
 ########## poll interval ##########
 # Tip: In order to be notified (and stop or forcestop a job when triggered) in time,
@@ -264,18 +268,35 @@ POLL_REQUEST_INTERVAL = 10
 
 # The default is False, set it to True to enable alert via Slack, Telegram, or Email.
 # You have to set up your accounts in the "Send text" section above first.
-ENABLE_SLACK_ALERT = os.environ.get("ENABLE_SLACK_ALERT", 'False').lower() in ['true', '1']
-ENABLE_TELEGRAM_ALERT = os.environ.get("ENABLE_TELEGRAM_ALERT", 'False').lower() in ['true', '1']
-ENABLE_EMAIL_ALERT = os.environ.get("ENABLE_EMAIL_ALERT", 'False').lower() in ['true', '1']
+ENABLE_SLACK_ALERT = os.environ.get("ENABLE_SLACK_ALERT", "False").lower() in [
+    "true",
+    "1",
+]
+ENABLE_TELEGRAM_ALERT = os.environ.get("ENABLE_TELEGRAM_ALERT", "False").lower() in [
+    "true",
+    "1",
+]
+ENABLE_EMAIL_ALERT = os.environ.get("ENABLE_EMAIL_ALERT", "False").lower() in [
+    "true",
+    "1",
+]
 
 ########## alert working time ##########
 # Monday is 1 and Sunday is 7.
 # e.g, [1, 2, 3, 4, 5, 6, 7]
-ALERT_WORKING_DAYS = os.environ.get("ALERT_WORKING_DAYS").split(',') if os.environ.get("ALERT_WORKING_DAYS") else []
+ALERT_WORKING_DAYS = (
+    os.environ.get("ALERT_WORKING_DAYS").split(",")
+    if os.environ.get("ALERT_WORKING_DAYS")
+    else []
+)
 
 # From 0 to 23.
 # e.g. [9] + list(range(15, 18)) >>> [9, 15, 16, 17], or range(24) for 24 hours
-ALERT_WORKING_HOURS = os.environ.get("ALERT_WORKING_HOURS").split(',') if os.environ.get("ALERT_WORKING_HOURS") else []
+ALERT_WORKING_HOURS = (
+    os.environ.get("ALERT_WORKING_HOURS").split(",")
+    if os.environ.get("ALERT_WORKING_HOURS")
+    else []
+)
 
 ########## basic triggers ##########
 # Trigger alert every N seconds for each running job.
@@ -284,7 +305,7 @@ ON_JOB_RUNNING_INTERVAL = 0
 
 # Trigger alert when a job is finished.
 # The default is False, set it to True to enable this trigger.
-ON_JOB_FINISHED = os.environ.get("ON_JOB_FINISHED", 'False').lower() in ['true', '1']
+ON_JOB_FINISHED = os.environ.get("ON_JOB_FINISHED", "False").lower() in ["true", "1"]
 
 ########## advanced triggers ##########
 # - LOG_XXX_THRESHOLD:
@@ -340,7 +361,7 @@ VERBOSE = False
 
 # The default is '', which means saving all program data in the Python directory.
 # e.g. 'C:/Users/username/scrapydweb_data' or '/home/username/scrapydweb_data'
-DATA_PATH = os.environ.get('DATA_PATH', '')
+DATA_PATH = os.environ.get("DATA_PATH", "")
 
 # The default is '', which means saving data of Jobs and Timer Tasks in DATA_PATH using SQLite.
 # The data could be also saved in MySQL or PostgreSQL backend in order to improve concurrency.
@@ -351,4 +372,4 @@ DATA_PATH = os.environ.get('DATA_PATH', '')
 # 'postgres://username:password@127.0.0.1:5432'
 # 'sqlite:///C:/Users/username'
 # 'sqlite:////home/username'
-DATABASE_URL = os.environ.get('DATABASE_URL', '')
+DATABASE_URL = os.environ.get("DATABASE_URL", "")
