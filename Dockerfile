@@ -14,8 +14,8 @@ RUN pip install scrapydweb==1.5.0
 RUN pip install psycopg2
 
 RUN mkdir /scrapyd
-COPY scrapydweb_settings_v10.py /scrapyd/
-WORKDIR /scrapyd/
+COPY scrapydweb_settings_v10.py /scrapydweb/
+WORKDIR /scrapydweb/
 
 EXPOSE 5000
 
